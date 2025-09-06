@@ -1,12 +1,17 @@
-import cv2
-import os
+import cv2,os,sys
 
 def main():
-    cap = cv2.VideoCapture("cat.mp4")
-    if not cap.isOpened():
-        print("Error: Could not open video file.")
+    ask = input("webcam or video name: ")
+    if ask == "webcam":
+        cap = cv2.VideoCapture(1)
     else:
-        print("Video file opened successfully!")
+        cap = cv2.VideoCapture(ask)
+        if not cap.isOpened():
+            print("Error: Could not open video file.")
+            sys.exit()
+        else:
+            print("Video file opened successfully!")
+
     for i in range(10):
         ret, frame = cap.read()
         frame_gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
